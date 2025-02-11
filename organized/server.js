@@ -182,6 +182,34 @@ app.post("/stkpush", async (req, res) => {
     }
   }
 });
+// Handle the callback from Safaricom
+app.post("/callback", async (req, res) => {
+  try {
+    console.log("Callback received:", req.body);
+
+    const callbackData = req.body;
+    const resultCode = callbackData.ResultCode;
+    const resultDesc = callbackData.ResultDesc;
+
+    if (resultCode === '0') {
+      console.log('Payment successful');
+      // Update database or other processes
+    } else if (resultCode === '1') {
+      console.log('Payment failed');
+      // Handle failure
+    } else {
+      console.log('Payment was cancelled or is pending');
+      // Handle cancellation
+    }
+
+    res.status(200).send("Callback received successfully!");
+  } catch (error) {
+    console.error("Callback Error:", error);
+    res.status(500).send("An error occurred while processing the callback.");
+  }
+});
+
+
 
 // Start server
 app.listen(PORT, () => {

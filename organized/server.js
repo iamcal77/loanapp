@@ -217,3 +217,5 @@ app.listen(PORT, () => {
   console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
   console.log("Using Safaricom Sandbox endpoints");
 });
+
+app.use(cors({ origin: "*" }));  // Allow all origins for testing, refine as needed

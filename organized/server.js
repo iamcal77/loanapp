@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3002;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, ".")));
+app.use(express.static(path.join(__dirname, "build", "index.html")));
 
 // Use sandbox URL for testing
 const mpesaAPI = axios.create({
@@ -207,6 +207,10 @@ app.post("/callback", async (req, res) => {
     console.error("Callback Error:", error);
     res.status(500).send("An error occurred while processing the callback.");
   }
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 
